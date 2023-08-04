@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      image: user.imagePath?user.imagePath:null
     });
   } else {
     res.status(401);
@@ -90,11 +91,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
-
+  const user = await User.findById(req.body._id);
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+
+    if(req.file){
+      user.imagePath = req.file.filename || user.imagePath;
+     }
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -106,6 +110,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      image: updatedUser.imagePath
     });
   } else {
     res.status(404);

@@ -15,6 +15,8 @@ connectDB();
 
 const app = express();
 
+app.use(express.static('backend/public'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

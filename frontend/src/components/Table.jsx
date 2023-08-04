@@ -77,7 +77,7 @@ const TableComponent = () => {
             </tr>
           ))):(
             <tr>
-                <td colSpan={3} className="text-center">No users Available</td>
+                <td colSpan={4} className="text-center">No users Available</td>
             </tr>
           )
           }
